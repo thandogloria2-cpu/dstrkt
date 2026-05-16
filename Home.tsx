@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, ChevronRight, Droplets, Shield, Cpu, Layers, X, ExternalLink, Lock, Loader2, Clock } from 'lucide-react';
@@ -13,7 +12,6 @@ const Home: React.FC = () => {
   const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
   const [cultureItems, setCultureItems] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [timeLeft, setTimeLeft] = useState({ days: 3, hours: 14, minutes: 52, seconds: 10 });
 
   useEffect(() => {
     const fetchHomeData = async () => {
@@ -88,18 +86,7 @@ const Home: React.FC = () => {
     fetchHomeData();
   }, []);
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft(prev => {
-        if (prev.seconds > 0) return { ...prev, seconds: prev.seconds - 1 };
-        if (prev.minutes > 0) return { ...prev, minutes: prev.minutes - 1, seconds: 59 };
-        if (prev.hours > 0) return { ...prev, hours: prev.hours - 1, minutes: 59, seconds: 59 };
-        if (prev.days > 0) return { ...prev, days: prev.days - 1, hours: 23, minutes: 59, seconds: 59 };
-        return prev;
-      });
-    }, 1000);
-    return () => clearInterval(timer);
-  }, []);
+
 
   const features = [
     { icon: Droplets, title: "Impermeable Shell", desc: "100% waterproof matte finish for all-weather deployment." },
@@ -220,8 +207,8 @@ const Home: React.FC = () => {
 
       {/* The Vault Section - Restored */}
       <section className="py-16 md:py-32 bg-[#050505] border-y border-white/5 relative overflow-hidden">
-        <div className="max-w-[1800px] mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center justify-between gap-12 md:gap-16">
-          <div className="max-w-2xl">
+        <div className="max-w-[1800px] mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center md:items-start justify-between gap-6 md:gap-16">
+          <div className="max-w-2xl text-left">
             <p className="text-[#D4AF37] text-[10px] tracking-[0.8em] font-black uppercase mb-6 flex items-center gap-4">
               <span className="w-12 h-[1px] bg-[#D4AF37]"></span> Restricted Access
             </p>
@@ -229,37 +216,22 @@ const Home: React.FC = () => {
             <p className="text-white/40 text-lg leading-relaxed font-light italic mb-12 border-l-2 border-[#D4AF37] pl-8 max-w-xl">
               Our archive of limited editions and experimental prototypes. Locked until the countdown expires. Members receive priority sequence.
             </p>
-            <Link to="/vault">
+            <Link to="/vault" className="hidden md:block">
               <button className="bg-white text-black px-12 py-6 text-[11px] tracking-[0.5em] font-black uppercase hover:bg-[#D4AF37] transition-all flex items-center gap-4">
                 Access Archive <Lock size={16} />
               </button>
             </Link>
           </div>
           
-          <div className="bg-black border border-white/10 p-12 md:p-20 text-center flex flex-col items-center justify-center relative min-w-[300px] md:min-w-[450px]">
-            <div className="absolute top-0 left-0 w-full h-1 bg-white/5 overflow-hidden">
-              <motion.div 
-                animate={{ x: ['-100%', '100%'] }}
-                transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                className="w-1/2 h-full bg-[#D4AF37]"
-              />
-            </div>
-            <Clock size={32} className="text-[#D4AF37] mb-8 animate-pulse" />
-            <div className="flex gap-6 md:gap-12 mb-8">
-              {[
-                { val: timeLeft.days, label: 'DAYS' },
-                { val: timeLeft.hours, label: 'HRS' },
-                { val: timeLeft.minutes, label: 'MIN' },
-                { val: timeLeft.seconds, label: 'SEC' }
-              ].map((t, i) => (
-                <div key={i} className="space-y-2">
-                  <p className="text-4xl md:text-6xl font-black tracking-tighter font-bebas">{t.val.toString().padStart(2, '0')}</p>
-                  <p className="text-[9px] tracking-[0.3em] font-bold text-white/30">{t.label}</p>
-                </div>
-              ))}
-            </div>
-            <p className="text-[10px] tracking-[0.5em] font-black uppercase text-[#D4AF37]">Drop Sequence Initiated</p>
+          <div className="bg-black border border-white/10 flex items-center justify-center relative w-full md:w-[450px] aspect-[4/3] md:aspect-auto overflow-hidden">
+             <img src="https://www.image2url.com/r2/default/images/1778947264137-b7700830-6c4c-4ab0-89ad-5503c43093d9.jpg" alt="Vault" className="w-full h-full object-cover" />
           </div>
+
+          <Link to="/vault" className="md:hidden w-full">
+            <button className="bg-white text-black px-12 py-6 text-[11px] tracking-[0.5em] font-black uppercase hover:bg-[#D4AF37] transition-all flex items-center justify-center gap-4 w-full">
+              Access Archive <Lock size={16} />
+            </button>
+          </Link>
         </div>
       </section>
 
