@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, ChevronRight, Droplets, Shield, Cpu, Layers, X, ExternalLink, Lock, Loader2, Clock } from 'lucide-react';
@@ -214,7 +215,7 @@ const Home: React.FC = () => {
             </p>
             <h2 className="text-5xl md:text-8xl font-black uppercase tracking-tighter italic mb-10 leading-none">The<br />Vault.</h2>
             <p className="text-white/40 text-lg leading-relaxed font-light italic mb-12 border-l-2 border-[#D4AF37] pl-8 max-w-xl">
-              Our archive of limited editions and experimental prototypes. Locked until the countdown expires. Members receive priority sequence.
+              Our archive of limited editions and experimental prototypes. Locked for exclusive members. Register to be a member to receive exclusive priority.
             </p>
             <Link to="/vault" className="hidden md:block">
               <button className="bg-white text-black px-12 py-6 text-[11px] tracking-[0.5em] font-black uppercase hover:bg-[#D4AF37] transition-all flex items-center gap-4">
