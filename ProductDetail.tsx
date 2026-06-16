@@ -219,11 +219,7 @@ const ProductDetail: React.FC = () => {
                 {product.name === 'Swarm Duffel' && currentSlide === 1 ? 'Swarm Duffel 02' : product.name}
               </h1>
               <p className="text-xl md:text-2xl font-black text-white mb-6 md:mb-8">{product.price}</p>
-              {product.stock !== undefined && (
-                <p className="text-[12px] font-bold text-[#D4AF37] mb-6 md:mb-8 tracking-widest uppercase">
-                  {product.stock > 0 ? `Only ${product.stock} items left in stock!` : 'Out of stock!'}
-                </p>
-              )}
+              {/* Removed stock indicator */}
               <div className="w-full h-[1px] bg-white/10 mb-6 md:mb-8"></div>
               <p className="text-white/60 text-sm md:text-base font-light leading-relaxed mb-8 md:mb-12">{product.description}</p>
 
@@ -250,7 +246,7 @@ const ProductDetail: React.FC = () => {
                       </motion.div>
                     ) : (
                       <motion.div key="default" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="flex items-center gap-2">
-                        <ShoppingBag size={18} /> Pre-Order
+                        <ShoppingBag size={18} /> Order
                       </motion.div>
                     )}
                   </AnimatePresence>
