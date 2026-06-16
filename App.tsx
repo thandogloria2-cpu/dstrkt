@@ -29,6 +29,22 @@ const ScrollToTop: React.FC = () => {
   return null;
 };
 
+const DynamicCanonical: React.FC = () => {
+  const { pathname } = useLocation();
+  
+  useEffect(() => {
+    let canonical = document.querySelector("link[rel='canonical']") as HTMLLinkElement;
+    if (!canonical) {
+      canonical = document.createElement('link') as HTMLLinkElement;
+      canonical.setAttribute('rel', 'canonical');
+      document.head.appendChild(canonical);
+    }
+    canonical.setAttribute('href', `https://dstrkt.co.za${pathname}`);
+  }, [pathname]);
+  
+  return null;
+};
+
 const CartSidebar: React.FC = () => {
   const { items, removeFromCart, updateQuantity, subtotal, isCartOpen, setCartOpen } = useCart();
 
