@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, SlidersHorizontal, Loader2, ArrowLeft } from 'lucide-react';
@@ -28,7 +27,7 @@ const Collections: React.FC = () => {
           // Silent fallback to local data if Supabase is empty or unreachable
           setProducts(filterProducts(PRODUCTS).filter(p => p.tag !== 'VAULT'));
         } else {
-          const mapped = data.map(p => ({
+          const mapped: Product[] = data.map(p => ({
             id: p.id,
             name: p.name,
             price: p.price_display,
@@ -37,7 +36,15 @@ const Collections: React.FC = () => {
             tag: p.tag
           }));
           
-          const filtered = filterProducts(mapped);
+          let filtered = filterProducts(mapped);
+          
+          // Merge local products not present in the database (e.g., newly added ones like Cigarettes Duffel)
+          const localProducts = filterProducts(PRODUCTS).filter(p => p.tag !== 'VAULT');
+          localProducts.forEach(lp => {
+            if (!filtered.some(p => p.id === lp.id || p.name === lp.name)) {
+              filtered.push(lp);
+            }
+          });
           
           // Custom swap logic: Start with Soul Reaper and put Urban Voyager II where Soul Reaper was
           const srIndex = filtered.findIndex(p => p.name.toUpperCase() === 'SOUL REAPER');
