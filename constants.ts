@@ -2,6 +2,19 @@ import { Product, VaultDrop } from './types';
 
 export const PRODUCTS: Product[] = [
   {
+    id: 'cg-1',
+    name: 'Cigarettes Duffel',
+    price: '$280',
+    description: 'A striking blend of provocative artistry and premium craftsmanship. This piece redefines the modern carry experience.',
+    image: 'https://cdn.corenexis.com/f/R5eqKjCgV6B.png',
+    tag: 'NEW ARRIVAL',
+    gallery: [
+      'https://cdn.corenexis.com/f/2YC9P2d8OsG.png',
+      'https://cdn.corenexis.com/f/veFbqM7SdpQ.png',
+      'https://cdn.corenexis.com/f/s66DpcBQ1a3.png'
+    ]
+  },
+  {
     id: 'sr-1',
     name: 'SOUL REAPER',
     price: '$280',
