@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -21,6 +20,8 @@ const ProductDetail: React.FC = () => {
   const [quantity, setQuantity] = useState(1);
   const [isAdding, setIsAdding] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
 
   useEffect(() => {
     const fetchProductData = async () => {
@@ -29,7 +30,20 @@ const ProductDetail: React.FC = () => {
         if (!isSupabaseConfigured || !id) {
           const localProduct = PRODUCTS.find(p => p.id === id) || PRODUCTS[0];
           setProduct(localProduct);
-          setGallery(localProduct.gallery || []);
+          let localGallery = localProduct.gallery || [];
+          if (localProduct.name.toLowerCase().includes('blood splatter')) {
+            localGallery = [...localGallery, 'https://cdn.corenexis.com/f/iL6V1aY6ent.jpeg', 'https://cdn.corenexis.com/f/4uQlBSf6wMS.jpeg', 'https://cdn.corenexis.com/f/D3akoCtwW2V.jpeg'];
+          }
+          if (localProduct.name.toLowerCase().includes('shadow jin')) {
+            localGallery = [...localGallery, 'https://cdn.corenexis.com/f/MYbBRaeeQNX.jpeg', 'https://cdn.corenexis.com/f/9fNvW4SfOyW.jpeg'];
+          }
+          if (localProduct.name.toLowerCase().includes('red dragon')) {
+            localGallery = [...localGallery, 'https://cdn.corenexis.com/f/8An4YqMmLgF.jpeg'];
+          }
+          if (localProduct.name.toLowerCase().includes('behind toji')) {
+            localGallery = [...localGallery, 'https://cdn.corenexis.com/f/v1SvjyAPCya.jpeg', 'https://cdn.corenexis.com/f/1IkGZvA3NJo.jpeg'];
+          }
+          setGallery(localGallery);
           setLoading(false);
           return;
         }
@@ -52,7 +66,20 @@ const ProductDetail: React.FC = () => {
           if (vaultError || !vaultData) {
             const localFallback = PRODUCTS.find(p => p.id === id) || PRODUCTS[0];
             setProduct(localFallback);
-            setGallery(localFallback.gallery || []);
+            let localGallery = localFallback.gallery || [];
+            if (localFallback.name.toLowerCase().includes('blood splatter')) {
+              localGallery = [...localGallery, 'https://cdn.corenexis.com/f/iL6V1aY6ent.jpeg', 'https://cdn.corenexis.com/f/4uQlBSf6wMS.jpeg', 'https://cdn.corenexis.com/f/D3akoCtwW2V.jpeg'];
+            }
+            if (localFallback.name.toLowerCase().includes('shadow jin')) {
+              localGallery = [...localGallery, 'https://cdn.corenexis.com/f/MYbBRaeeQNX.jpeg', 'https://cdn.corenexis.com/f/9fNvW4SfOyW.jpeg'];
+            }
+            if (localFallback.name.toLowerCase().includes('red dragon')) {
+              localGallery = [...localGallery, 'https://cdn.corenexis.com/f/8An4YqMmLgF.jpeg'];
+            }
+            if (localFallback.name.toLowerCase().includes('behind toji')) {
+              localGallery = [...localGallery, 'https://cdn.corenexis.com/f/v1SvjyAPCya.jpeg', 'https://cdn.corenexis.com/f/1IkGZvA3NJo.jpeg'];
+            }
+            setGallery(localGallery);
           } else {
             setProduct({
               id: vaultData.id,
@@ -62,7 +89,20 @@ const ProductDetail: React.FC = () => {
               image: vaultData.image_url,
               tag: 'VAULT'
             });
-            setGallery([]); // Vault drops might not have a gallery in the current schema
+            let vaultGallery: string[] = [];
+            if (vaultData.name.toLowerCase().includes('blood splatter')) {
+              vaultGallery = ['https://cdn.corenexis.com/f/iL6V1aY6ent.jpeg', 'https://cdn.corenexis.com/f/4uQlBSf6wMS.jpeg', 'https://cdn.corenexis.com/f/D3akoCtwW2V.jpeg'];
+            }
+            if (vaultData.name.toLowerCase().includes('shadow jin')) {
+              vaultGallery = ['https://cdn.corenexis.com/f/MYbBRaeeQNX.jpeg', 'https://cdn.corenexis.com/f/9fNvW4SfOyW.jpeg'];
+            }
+            if (vaultData.name.toLowerCase().includes('red dragon')) {
+              vaultGallery = ['https://cdn.corenexis.com/f/8An4YqMmLgF.jpeg'];
+            }
+            if (vaultData.name.toLowerCase().includes('behind toji')) {
+              vaultGallery = ['https://cdn.corenexis.com/f/v1SvjyAPCya.jpeg', 'https://cdn.corenexis.com/f/1IkGZvA3NJo.jpeg'];
+            }
+            setGallery(vaultGallery);
           }
         } else {
           // Check if excluded
@@ -88,15 +128,33 @@ const ProductDetail: React.FC = () => {
             .eq('product_id', id)
             .order('display_order', { ascending: true });
 
-          if (gallData) {
-            let images = gallData.map(g => g.image_url);
-            if (prodData.name === 'Swarm Duffel') {
-              images.push('https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Swarm%20Duffel%202.png');
-            }
-            setGallery(images);
-          } else if (prodData.name === 'Swarm Duffel') {
-            setGallery(['https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Swarm%20Duffel%202.png']);
+          let images = gallData ? gallData.map(g => g.image_url) : [];
+          if (prodData.name === 'Swarm Duffel') {
+            images.push('https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Swarm%20Duffel%202.png');
           }
+          if (prodData.name.toLowerCase().includes('blood splatter')) {
+            images.push(
+              'https://cdn.corenexis.com/f/iL6V1aY6ent.jpeg',
+              'https://cdn.corenexis.com/f/4uQlBSf6wMS.jpeg',
+              'https://cdn.corenexis.com/f/D3akoCtwW2V.jpeg'
+            );
+          }
+          if (prodData.name.toLowerCase().includes('shadow jin')) {
+            images.push(
+              'https://cdn.corenexis.com/f/MYbBRaeeQNX.jpeg',
+              'https://cdn.corenexis.com/f/9fNvW4SfOyW.jpeg'
+            );
+          }
+          if (prodData.name.toLowerCase().includes('red dragon')) {
+            images.push('https://cdn.corenexis.com/f/8An4YqMmLgF.jpeg');
+          }
+          if (prodData.name.toLowerCase().includes('behind toji')) {
+            images.push(
+              'https://cdn.corenexis.com/f/v1SvjyAPCya.jpeg',
+              'https://cdn.corenexis.com/f/1IkGZvA3NJo.jpeg'
+            );
+          }
+          setGallery(images);
         }
       } catch (err) {
         console.error('Fetch error:', err);
@@ -143,6 +201,30 @@ const ProductDetail: React.FC = () => {
   const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % allSlides.length);
   const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + allSlides.length) % allSlides.length);
 
+  const minSwipeDistance = 50;
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEndHandler = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe) {
+      nextSlide();
+    } else if (isRightSwipe) {
+      prevSlide();
+    }
+  };
+
   return (
     <main className="bg-black min-h-screen pt-24 md:pt-32 pb-16 md:pb-24 selection:bg-[#D4AF37] selection:text-black">
       <div className="max-w-[1800px] mx-auto px-6 md:px-12">
@@ -155,7 +237,12 @@ const ProductDetail: React.FC = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-16 xl:gap-24">
           <div className="lg:col-span-7 xl:col-span-8 space-y-6 md:space-y-8">
-            <div className="relative h-[600px] w-full bg-[#0d0d0d] border border-white/5 overflow-hidden group">
+            <div 
+              className="relative h-[600px] w-full bg-[#0d0d0d] border border-white/5 overflow-hidden group"
+              onTouchStart={onTouchStart}
+              onTouchMove={onTouchMove}
+              onTouchEnd={onTouchEndHandler}
+            >
               <div className="w-full h-full relative overflow-hidden touch-pan-y">
                 <AnimatePresence mode="wait" initial={false}>
                   <motion.div
