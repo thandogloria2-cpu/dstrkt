@@ -1,24 +1,23 @@
-
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { HashRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ShoppingBag, Instagram, Twitter, Globe, Trash2, ChevronRight, User } from 'lucide-react';
+import { Menu, X, ShoppingBag, Instagram, Twitter, Globe, Trash2, ChevronRight, User, Loader2 } from 'lucide-react';
 import Home from './Home';
-import Vault from './Vault';
-import PrivateShop from './PrivateShop';
-import ProductDetail from './ProductDetail';
-import Collections from './Collections';
-import Culture from './Culture';
-import Craftsmanship from './Craftsmanship';
-import Journal from './Journal';
-import Support from './Support';
-import PrivacyPolicy from './PrivacyPolicy';
-import TermsOfService from './TermsOfService';
-import Checkout from './Checkout';
-import Account from './Account';
-import Profile from './Profile';
-import Orders from './Orders';
-import Wishlist from './Wishlist';
+const Vault = lazy(() => import('./Vault'));
+const PrivateShop = lazy(() => import('./PrivateShop'));
+const ProductDetail = lazy(() => import('./ProductDetail'));
+const Collections = lazy(() => import('./Collections'));
+const Culture = lazy(() => import('./Culture'));
+const Craftsmanship = lazy(() => import('./Craftsmanship'));
+const Journal = lazy(() => import('./Journal'));
+const Support = lazy(() => import('./Support'));
+const PrivacyPolicy = lazy(() => import('./PrivacyPolicy'));
+const TermsOfService = lazy(() => import('./TermsOfService'));
+const Checkout = lazy(() => import('./Checkout'));
+const Account = lazy(() => import('./Account'));
+const Profile = lazy(() => import('./Profile'));
+const Orders = lazy(() => import('./Orders'));
+const Wishlist = lazy(() => import('./Wishlist'));
 import { CartProvider, useCart } from './CartContext';
 
 const ScrollToTop: React.FC = () => {
@@ -105,7 +104,7 @@ const CartSidebar: React.FC = () => {
                          </button>
                          <p className="text-[11px] text-white tracking-widest w-6 text-center">{item.quantity}</p>
                          <button 
-                            onClick={() => updateQuantity(item.id, item.quantity + 1)} 
+                            onClick={() => updateQuantity(item.id, Math.min(100, item.quantity + 1))} 
                             className="bg-[#111] border border-white/10 w-6 h-6 flex items-center justify-center text-white hover:border-[#D4AF37] transition-all"
                          >
                            +
@@ -311,29 +310,32 @@ const AppLayout: React.FC = () => {
   return (
     <div className="min-h-screen bg-black text-white selection:bg-[#D4AF37] selection:text-black">
       <ScrollToTop />
+      <DynamicCanonical />
       <Navbar onOpenMenu={() => setIsMenuOpen(true)} />
       <CartSidebar />
       <MenuOverlay isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
       
       <AnimatePresence mode="wait">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/vault" element={<Vault />} />
-          <Route path="/vault/shop" element={<PrivateShop />} />
-          <Route path="/collections" element={<Collections />} />
-          <Route path="/product/:id" element={<ProductDetail />} />
-          <Route path="/culture" element={<Culture />} />
-          <Route path="/craftsmanship" element={<Craftsmanship />} />
-          <Route path="/journal" element={<Journal />} />
-          <Route path="/support" element={<Support />} />
-          <Route path="/privacy" element={<PrivacyPolicy />} />
-          <Route path="/terms" element={<TermsOfService />} />
-          <Route path="/checkout" element={<Checkout />} />
-          <Route path="/account" element={<Account />} />
-          <Route path="/account/profile" element={<Profile />} />
-          <Route path="/account/orders" element={<Orders />} />
-          <Route path="/account/wishlist" element={<Wishlist />} />
-        </Routes>
+        <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-[#0a0a0a] text-white"><Loader2 className="animate-spin text-[#D4AF37]" size={40} /></div>}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/vault" element={<Vault />} />
+            <Route path="/vault/shop" element={<PrivateShop />} />
+            <Route path="/collections" element={<Collections />} />
+            <Route path="/product/:id" element={<ProductDetail />} />
+            <Route path="/culture" element={<Culture />} />
+            <Route path="/craftsmanship" element={<Craftsmanship />} />
+            <Route path="/journal" element={<Journal />} />
+            <Route path="/support" element={<Support />} />
+            <Route path="/privacy" element={<PrivacyPolicy />} />
+            <Route path="/terms" element={<TermsOfService />} />
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/account" element={<Account />} />
+            <Route path="/account/profile" element={<Profile />} />
+            <Route path="/account/orders" element={<Orders />} />
+            <Route path="/account/wishlist" element={<Wishlist />} />
+          </Routes>
+        </Suspense>
       </AnimatePresence>
 
       <Footer />
