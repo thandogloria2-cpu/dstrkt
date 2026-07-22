@@ -1,4 +1,3 @@
-
 import React, { useState, createContext, useContext, useMemo } from 'react';
 import { Product } from './types';
 
@@ -34,9 +33,9 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setItems(prev => {
       const existing = prev.find(item => item.id === product.id);
       if (existing) {
-        return prev.map(item => item.id === product.id ? { ...item, quantity: item.quantity + quantity } : item);
+        return prev.map(item => item.id === product.id ? { ...item, quantity: Math.min(100, item.quantity + quantity) } : item);
       }
-      return [...prev, { ...product, quantity }];
+      return [...prev, { ...product, quantity: Math.min(100, quantity) }];
     });
     setCartOpen(true);
   };
@@ -50,7 +49,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       removeFromCart(productId);
       return;
     }
-    setItems(prev => prev.map(item => item.id === productId ? { ...item, quantity } : item));
+    setItems(prev => prev.map(item => item.id === productId ? { ...item, quantity: Math.min(100, quantity) } : item));
   };
 
   const clearCart = () => {
