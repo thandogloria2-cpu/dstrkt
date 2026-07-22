@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Lock, ArrowLeft, ShoppingBag, Eye, ShieldAlert, BadgeCheck, Loader2 } from 'lucide-react';
@@ -129,6 +128,7 @@ const PrivateShop: React.FC = () => {
                       src={product.image || 'https://via.placeholder.com/800x1000?text=DSTRKT+VAULT'} 
                       alt={product.name} 
                       referrerPolicy="no-referrer"
+                      loading="lazy"
                       className="w-full h-full object-cover transition-transform duration-[6s] group-hover:scale-110"
                     />
                     
