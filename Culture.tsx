@@ -130,6 +130,7 @@ const Culture: React.FC = () => {
                     <img 
                       src={item.image_url} 
                       alt={item.title} 
+                      loading="lazy"
                       className="w-full h-full object-cover opacity-100 transition-all duration-700 hover:scale-110"
                     />
                   </motion.div>
