@@ -103,12 +103,15 @@ const Home: React.FC = () => {
       <section className="relative h-screen w-full flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-black z-10"></div>
-          <motion.img 
+          <motion.video 
             initial={{ scale: 1.15 }}
             animate={{ scale: 1 }}
             transition={{ duration: 2, ease: "easeOut" }}
-            src="https://image2url.com/r2/default/images/1773739512172-d38160fe-ca9b-49a9-a5c9-288c16f1fb0c.png" 
-            alt="DSTRKT Banner" 
+            src="https://www.image2url.com/r2/default/videos/1784727816972-2416c1b0-934e-4b9f-8383-bef8a1ca4174.mp4" 
+            autoPlay
+            loop
+            muted
+            playsInline
             className="w-full h-full object-cover"
           />
         </div>
@@ -156,6 +159,44 @@ const Home: React.FC = () => {
         </div>
       </section>
 
+      {/* Upcoming Release Section */}
+      <section className="py-16 md:py-32 px-6 md:px-12 bg-[#050505] border-b border-white/5 relative overflow-hidden">
+        <div className="max-w-[1800px] mx-auto">
+          <header className="mb-12 md:mb-16 flex flex-col md:flex-row justify-between items-end gap-6">
+            <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
+              <p className="text-[10px] tracking-[0.6em] font-black uppercase text-[#D4AF37] mb-4">Upcoming</p>
+              <h2 className="text-4xl md:text-8xl font-black uppercase tracking-tighter leading-none italic text-white">NEW RELEASE.</h2>
+            </motion.div>
+          </header>
+          
+          <div className="flex justify-center">
+            <div className="w-full lg:w-2/3 xl:w-1/2">
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1 }}
+                className="relative aspect-[4/5] md:aspect-[16/9] lg:aspect-[21/9] overflow-hidden border border-white/10 group"
+              >
+                <video 
+                  src="https://www.image2url.com/r2/default/videos/1784728114607-70587ac6-4ce7-41af-b753-87b32fc4d7f0.mp4" 
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
+                <div className="absolute bottom-8 left-8 right-8">
+                  <p className="text-[#D4AF37] text-[10px] tracking-[0.5em] font-black uppercase mb-2">COMING AUGUST 2026</p>
+                  <h3 className="text-2xl md:text-4xl font-black text-white uppercase tracking-widest leading-none">SCARFACE <br/> DUFFEL</h3>
+                </div>
+              </motion.div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Featured Products */}
       <section className="py-16 md:py-32 px-6 md:px-12 max-w-[1800px] mx-auto">
         <header className="flex flex-col md:flex-row justify-between items-end mb-8 md:mb-12 gap-6">
@@ -189,6 +230,7 @@ const Home: React.FC = () => {
                     <img 
                       src={product.image} 
                       alt={product.name} 
+                      loading="lazy"
                       className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110" 
                     />
                     <div className="absolute bottom-6 left-6">
@@ -225,7 +267,7 @@ const Home: React.FC = () => {
           </div>
           
           <div className="bg-black border border-white/10 flex items-center justify-center relative w-full md:w-[450px] aspect-[4/3] md:aspect-auto overflow-hidden">
-             <img src="https://www.image2url.com/r2/default/images/1778947264137-b7700830-6c4c-4ab0-89ad-5503c43093d9.jpg" alt="Vault" className="w-full h-full object-cover" />
+             <img src="https://www.image2url.com/r2/default/images/1778947264137-b7700830-6c4c-4ab0-89ad-5503c43093d9.jpg" alt="Vault" loading="lazy" className="w-full h-full object-cover" />
           </div>
 
           <Link to="/vault" className="md:hidden w-full">
@@ -282,7 +324,7 @@ const Home: React.FC = () => {
               viewport={{ once: true }}
               className={`relative group overflow-hidden border border-white/10 ${i === 0 ? 'lg:col-span-2 lg:row-span-2' : ''}`}
             >
-              <img src={item.image_url} alt={item.title} className="w-full h-full object-cover transition-transform duration-[3s] group-hover:scale-110" />
+              <img src={item.image_url} alt={item.title} loading="lazy" className="w-full h-full object-cover transition-transform duration-[3s] group-hover:scale-110" />
               <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8 md:p-12">
                 <p className="text-[10px] tracking-[0.4em] font-black text-[#D4AF37] uppercase mb-2">{item.tag || item.collection || 'DISTRICT'}</p>
                 <h3 className="text-2xl md:text-4xl font-black uppercase tracking-tighter mb-8 leading-none italic text-white">{item.title}</h3>
