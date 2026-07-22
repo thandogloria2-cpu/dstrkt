@@ -41,7 +41,7 @@ const Collections: React.FC = () => {
           // Merge local products not present in the database (e.g., newly added ones like Cigarettes Duffel)
           const localProducts = filterProducts(PRODUCTS).filter(p => p.tag !== 'VAULT');
           localProducts.forEach(lp => {
-            if (!filtered.some(p => p.id === lp.id || p.name === lp.name)) {
+            if (!filtered.some(p => p.id === lp.id || p.name.toLowerCase() === lp.name.toLowerCase())) {
               filtered.push(lp);
             }
           });
