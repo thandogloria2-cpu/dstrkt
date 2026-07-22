@@ -293,7 +293,7 @@ const ProductDetail: React.FC = () => {
                   onClick={() => setCurrentSlide(idx)}
                   className={`aspect-square bg-[#0d0d0d] border transition-all duration-500 overflow-hidden ${currentSlide === idx ? 'border-[#D4AF37] opacity-100' : 'border-white/5 opacity-40 hover:opacity-100'}`}
                 >
-                  <img src={slide} alt={`Thumbnail ${idx + 1}`} className="w-full h-full object-contain" />
+                  <img src={slide} alt={`Thumbnail ${idx + 1}`} loading="lazy" className="w-full h-full object-contain" />
                 </button>
               ))}
             </div>
@@ -316,7 +316,7 @@ const ProductDetail: React.FC = () => {
                   <div className="flex items-center border border-white/10 bg-white/5">
                     <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="p-3 md:p-4 text-white/40 hover:text-white"><Minus size={14} /></button>
                     <span className="w-10 md:w-12 text-center text-[11px] font-black">{quantity}</span>
-                    <button onClick={() => setQuantity(quantity + 1)} className="p-3 md:p-4 text-white/40 hover:text-white"><Plus size={14} /></button>
+                    <button onClick={() => setQuantity(Math.min(100, quantity + 1))} className="p-3 md:p-4 text-white/40 hover:text-white"><Plus size={14} /></button>
                   </div>
                 </div>
 
