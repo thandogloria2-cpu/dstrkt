@@ -32,6 +32,7 @@ const VaultItem: React.FC<{ drop: VaultDrop, index: number, hasAccess: boolean }
           src={drop.image || 'https://via.placeholder.com/800x1000?text=DSTRKT+VAULT'} 
           alt={drop.name} 
           referrerPolicy="no-referrer"
+          loading="lazy"
           className={`w-full h-full object-cover transition-transform duration-[4s] group-hover:scale-110 ${isSoldOut ? 'grayscale opacity-30' : 'grayscale group-hover:grayscale-0'}`}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80"></div>
