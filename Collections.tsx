@@ -138,6 +138,7 @@ const Collections: React.FC = () => {
                       <img 
                         src={product.image} 
                         alt={product.name} 
+                        loading="lazy"
                         className="w-full h-full object-cover transition-transform duration-[4s] group-hover:scale-110" 
                       />
                       <div className="absolute top-8 right-8 opacity-0 group-hover:opacity-100 transition-opacity">
