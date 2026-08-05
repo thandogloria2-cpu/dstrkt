@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -30,19 +31,7 @@ const ProductDetail: React.FC = () => {
         if (!isSupabaseConfigured || !id) {
           const localProduct = PRODUCTS.find(p => p.id === id) || PRODUCTS[0];
           setProduct(localProduct);
-          let localGallery = localProduct.gallery || [];
-          if (localProduct.name.toLowerCase().includes('blood splatter')) {
-            localGallery = [...localGallery, 'https://cdn.corenexis.com/f/iL6V1aY6ent.jpeg', 'https://cdn.corenexis.com/f/4uQlBSf6wMS.jpeg', 'https://cdn.corenexis.com/f/D3akoCtwW2V.jpeg'];
-          }
-          if (localProduct.name.toLowerCase().includes('shadow jin')) {
-            localGallery = [...localGallery, 'https://cdn.corenexis.com/f/MYbBRaeeQNX.jpeg', 'https://cdn.corenexis.com/f/9fNvW4SfOyW.jpeg'];
-          }
-          if (localProduct.name.toLowerCase().includes('red dragon')) {
-            localGallery = [...localGallery, 'https://cdn.corenexis.com/f/8An4YqMmLgF.jpeg'];
-          }
-          if (localProduct.name.toLowerCase().includes('behind toji')) {
-            localGallery = [...localGallery, 'https://cdn.corenexis.com/f/v1SvjyAPCya.jpeg', 'https://cdn.corenexis.com/f/1IkGZvA3NJo.jpeg'];
-          }
+          let localGallery = (localProduct.gallery || []).filter(u => !u.includes('corenexis.com'));
           setGallery(localGallery);
           setLoading(false);
           return;
@@ -66,19 +55,7 @@ const ProductDetail: React.FC = () => {
           if (vaultError || !vaultData) {
             const localFallback = PRODUCTS.find(p => p.id === id) || PRODUCTS[0];
             setProduct(localFallback);
-            let localGallery = localFallback.gallery || [];
-            if (localFallback.name.toLowerCase().includes('blood splatter')) {
-              localGallery = [...localGallery, 'https://cdn.corenexis.com/f/iL6V1aY6ent.jpeg', 'https://cdn.corenexis.com/f/4uQlBSf6wMS.jpeg', 'https://cdn.corenexis.com/f/D3akoCtwW2V.jpeg'];
-            }
-            if (localFallback.name.toLowerCase().includes('shadow jin')) {
-              localGallery = [...localGallery, 'https://cdn.corenexis.com/f/MYbBRaeeQNX.jpeg', 'https://cdn.corenexis.com/f/9fNvW4SfOyW.jpeg'];
-            }
-            if (localFallback.name.toLowerCase().includes('red dragon')) {
-              localGallery = [...localGallery, 'https://cdn.corenexis.com/f/8An4YqMmLgF.jpeg'];
-            }
-            if (localFallback.name.toLowerCase().includes('behind toji')) {
-              localGallery = [...localGallery, 'https://cdn.corenexis.com/f/v1SvjyAPCya.jpeg', 'https://cdn.corenexis.com/f/1IkGZvA3NJo.jpeg'];
-            }
+            let localGallery = (localFallback.gallery || []).filter(u => !u.includes('corenexis.com'));
             setGallery(localGallery);
           } else {
             setProduct({
@@ -89,20 +66,7 @@ const ProductDetail: React.FC = () => {
               image: vaultData.image_url,
               tag: 'VAULT'
             });
-            let vaultGallery: string[] = [];
-            if (vaultData.name.toLowerCase().includes('blood splatter')) {
-              vaultGallery = ['https://cdn.corenexis.com/f/iL6V1aY6ent.jpeg', 'https://cdn.corenexis.com/f/4uQlBSf6wMS.jpeg', 'https://cdn.corenexis.com/f/D3akoCtwW2V.jpeg'];
-            }
-            if (vaultData.name.toLowerCase().includes('shadow jin')) {
-              vaultGallery = ['https://cdn.corenexis.com/f/MYbBRaeeQNX.jpeg', 'https://cdn.corenexis.com/f/9fNvW4SfOyW.jpeg'];
-            }
-            if (vaultData.name.toLowerCase().includes('red dragon')) {
-              vaultGallery = ['https://cdn.corenexis.com/f/8An4YqMmLgF.jpeg'];
-            }
-            if (vaultData.name.toLowerCase().includes('behind toji')) {
-              vaultGallery = ['https://cdn.corenexis.com/f/v1SvjyAPCya.jpeg', 'https://cdn.corenexis.com/f/1IkGZvA3NJo.jpeg'];
-            }
-            setGallery(vaultGallery);
+            setGallery([]);
           }
         } else {
           // Check if excluded
@@ -111,12 +75,21 @@ const ProductDetail: React.FC = () => {
             setLoading(false);
             return;
           }
+
+          const localMatch = PRODUCTS.find(p => p.id === id || p.name.toLowerCase() === prodData.name.toLowerCase());
+          let mainImage = prodData.image_url;
+          if (!mainImage || mainImage.includes('corenexis.com') || prodData.name.toLowerCase().includes('cigarettes')) {
+            if (localMatch?.image) {
+              mainImage = localMatch.image;
+            }
+          }
+
           setProduct({
             id: prodData.id,
             name: prodData.name,
             price: prodData.price_display,
             description: prodData.description,
-            image: prodData.image_url,
+            image: mainImage,
             tag: prodData.tag,
             stock: prodData.stock ?? 10
           });
@@ -128,31 +101,16 @@ const ProductDetail: React.FC = () => {
             .eq('product_id', id)
             .order('display_order', { ascending: true });
 
-          let images = gallData ? gallData.map(g => g.image_url) : [];
+          let images = gallData ? gallData.map(g => g.image_url).filter(url => !url.includes('corenexis.com')) : [];
           if (prodData.name === 'Swarm Duffel') {
             images.push('https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Swarm%20Duffel%202.png');
           }
-          if (prodData.name.toLowerCase().includes('blood splatter')) {
-            images.push(
-              'https://cdn.corenexis.com/f/iL6V1aY6ent.jpeg',
-              'https://cdn.corenexis.com/f/4uQlBSf6wMS.jpeg',
-              'https://cdn.corenexis.com/f/D3akoCtwW2V.jpeg'
-            );
-          }
-          if (prodData.name.toLowerCase().includes('shadow jin')) {
-            images.push(
-              'https://cdn.corenexis.com/f/MYbBRaeeQNX.jpeg',
-              'https://cdn.corenexis.com/f/9fNvW4SfOyW.jpeg'
-            );
-          }
-          if (prodData.name.toLowerCase().includes('red dragon')) {
-            images.push('https://cdn.corenexis.com/f/8An4YqMmLgF.jpeg');
-          }
-          if (prodData.name.toLowerCase().includes('behind toji')) {
-            images.push(
-              'https://cdn.corenexis.com/f/v1SvjyAPCya.jpeg',
-              'https://cdn.corenexis.com/f/1IkGZvA3NJo.jpeg'
-            );
+          if (localMatch?.gallery) {
+            localMatch.gallery.forEach(gImg => {
+              if (gImg && !gImg.includes('corenexis.com') && !images.includes(gImg)) {
+                images.push(gImg);
+              }
+            });
           }
           setGallery(images);
         }
