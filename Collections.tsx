@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, SlidersHorizontal, Loader2, ArrowLeft } from 'lucide-react';
@@ -41,8 +42,15 @@ const Collections: React.FC = () => {
           // Merge local products not present in the database (e.g., newly added ones like Cigarettes Duffel)
           const localProducts = filterProducts(PRODUCTS).filter(p => p.tag !== 'VAULT');
           localProducts.forEach(lp => {
-            if (!filtered.some(p => p.id === lp.id || p.name.toLowerCase() === lp.name.toLowerCase())) {
+            const existingIndex = filtered.findIndex(p => p.id === lp.id || p.name.toLowerCase() === lp.name.toLowerCase());
+            if (existingIndex === -1) {
               filtered.push(lp);
+            } else {
+              // Replace image if database image is missing, broken corenexis link, or for Cigarettes Duffel
+              const currImg = filtered[existingIndex].image;
+              if (!currImg || currImg.includes('corenexis.com') || lp.name.toLowerCase().includes('cigarettes')) {
+                filtered[existingIndex].image = lp.image;
+              }
             }
           });
           
