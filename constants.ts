@@ -6,12 +6,45 @@ export const PRODUCTS: Product[] = [
     name: 'Cigarettes Duffel',
     price: '$280',
     description: 'A striking blend of provocative artistry and premium craftsmanship. This piece redefines the modern carry experience.',
-    image: 'https://cdn.corenexis.com/f/R5eqKjCgV6B.png',
+    image: 'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Cigarettes.png',
     tag: 'NEW ARRIVAL',
     gallery: [
-      'https://cdn.corenexis.com/f/2YC9P2d8OsG.png',
-      'https://cdn.corenexis.com/f/veFbqM7SdpQ.png',
-      'https://cdn.corenexis.com/f/s66DpcBQ1a3.png'
+      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Cigarettes%2001.jpg',
+      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Cigarattes%2002.jpg',
+      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Cigarettes%2003.jpg',
+      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/cigarettes%2004.jpg',
+      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Cigarettes%2005.jpg'
+    ]
+  },
+  {
+    id: 'sf-1',
+    name: 'Scarface Duffel',
+    price: '$280',
+    description: 'Bold and uncompromising. A duffel designed for those who command respect and carry style.',
+    image: 'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Scarface.png',
+    tag: 'NEW ARRIVAL',
+    gallery: [
+      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Scarface%20panel%20grid.jpeg',
+      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Scarface%2002.jpg',
+      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Scarface%2001.jpg',
+      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Scarface%2009.jpg',
+      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Scarface%2010.jpg',
+      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Scarface%2014.jpg'
+    ]
+  },
+  {
+    id: 'sj-1',
+    name: 'Shadow Jin',
+    price: '$280',
+    description: 'A masterpiece of shadows. Designed for the bold, refined for the street.',
+    image: 'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Shadow%20Jin%2001.jpg',
+    tag: 'NEW ARRIVAL',
+    gallery: [
+      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Shadow%20Jin%2001.jpg',
+      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Shadow%20Jin%2002.jpg',
+      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Shadow%20Jin%2003.jpg',
+      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Shadow%20Jin%2004.jpg',
+      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Shadow%20Jin%2005.jpg'
     ]
   },
   {
@@ -44,7 +77,14 @@ export const PRODUCTS: Product[] = [
     price: '$280',
     description: 'Gold-plated hardware meets military-grade ballistic nylon.',
     image: 'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Swarm%20Deffel.png',
-    tag: 'BEST SELLER'
+    tag: 'BEST SELLER',
+    gallery: [
+      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Swarm%20duffel%2001.jpg',
+      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Swarm%20duffel%2002.jpg',
+      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Swarm%20duffel%2003.jpg',
+      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Swarm%20duffel%2004.jpg',
+      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Swarm%20duffel%2005.jpg'
+    ]
   },
   {
     id: 'v5',
