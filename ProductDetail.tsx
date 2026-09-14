@@ -78,7 +78,7 @@ const ProductDetail: React.FC = () => {
 
           const localMatch = PRODUCTS.find(p => p.id === id || p.name.toLowerCase() === prodData.name.toLowerCase());
           let mainImage = prodData.image_url;
-          if (!mainImage || mainImage.includes('corenexis.com') || prodData.name.toLowerCase().includes('cigarettes')) {
+          if (!mainImage || mainImage.includes('corenexis.com') || localMatch?.image) {
             if (localMatch?.image) {
               mainImage = localMatch.image;
             }
@@ -94,14 +94,8 @@ const ProductDetail: React.FC = () => {
             stock: prodData.stock ?? 10
           });
 
-          // Fetch Gallery
-          const { data: gallData } = await supabase
-            .from('product_gallery')
-            .select('image_url')
-            .eq('product_id', id)
-            .order('display_order', { ascending: true });
-
-          let images = gallData ? gallData.map(g => g.image_url).filter(url => !url.includes('corenexis.com')) : [];
+          // Use configured gallery images
+          let images: string[] = [];
           if (prodData.name === 'Swarm Duffel') {
             images.push('https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Swarm%20Duffel%202.png');
           }
@@ -148,7 +142,92 @@ const ProductDetail: React.FC = () => {
   const isVaultItem = product.tag === 'VAULT';
   const backToPath = isVaultItem ? '/vault' : '/collections';
   const backToLabel = isVaultItem ? 'BACK TO VAULT' : 'Back to Collection';
-  const allSlides = [product.image, ...gallery];
+  let allSlides = gallery.length > 0 
+    ? Array.from(new Set([...gallery, product.image].filter(Boolean)))
+    : [product.image].filter(Boolean);
+
+  if (product.name.toLowerCase().includes('scarface')) {
+    const desiredOrder = [
+      'scarface%2010.jpg',
+      'scarface%2014.jpg',
+      'scarface%2001.jpg',
+      'scarface%2009.jpg',
+      'scarface%20panel%20grid.jpeg',
+      'scarface%2002.jpg',
+      'scarface.png'
+    ];
+
+    const ordered: string[] = [];
+    desiredOrder.forEach(pattern => {
+      const decodedPattern = decodeURIComponent(pattern);
+      const idx = allSlides.findIndex(url => {
+        const lower = url.toLowerCase();
+        return lower.includes(pattern) || lower.includes(decodedPattern);
+      });
+      if (idx !== -1) {
+        ordered.push(allSlides[idx]);
+        allSlides.splice(idx, 1);
+      }
+    });
+
+    allSlides = [...ordered, ...allSlides];
+    if (!allSlides.some(u => u.toLowerCase().includes('scarface.png'))) {
+      allSlides.push('https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Scarface.png');
+    }
+  }
+
+  if (product.name.toLowerCase().includes('shadow jin')) {
+    const sjPngIndex = allSlides.findIndex(url => 
+      url.toLowerCase().includes('shadow%20jin.png') || url.toLowerCase().includes('shadow jin.png')
+    );
+    if (sjPngIndex !== -1) {
+      const [sjPng] = allSlides.splice(sjPngIndex, 1);
+      allSlides.push(sjPng);
+    }
+  }
+
+  if (product.name.toLowerCase().includes('blood splatter')) {
+    const desiredOrder = [
+      'blood%20splatter%2001.jpg',
+      'blood%20splatter%2002.jpg',
+      'blood%20splatter%2003.jpg',
+      'blood%20splatter%2004.jpg',
+      'blood%20splatter%2005.jpg',
+      'blood%20splatter%2006.jpg',
+      'blood%20splatter%2007.jpeg',
+      'blood%20splatter.png'
+    ];
+
+    const ordered: string[] = [];
+    desiredOrder.forEach(pattern => {
+      const decodedPattern = decodeURIComponent(pattern);
+      const idx = allSlides.findIndex(url => {
+        const lower = url.toLowerCase();
+        return lower.includes(pattern) || lower.includes(decodedPattern);
+      });
+      if (idx !== -1) {
+        ordered.push(allSlides[idx]);
+        allSlides.splice(idx, 1);
+      }
+    });
+
+    allSlides = [...ordered, ...allSlides];
+    if (!allSlides.some(u => u.toLowerCase().includes('blood%20splatter.png') || u.toLowerCase().includes('blood splatter.png'))) {
+      allSlides.push('https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Blood%20Splatter.png');
+    }
+  }
+
+  if (product.name.toLowerCase().includes('cigarettes')) {
+    const cgPngIndex = allSlides.findIndex(url => 
+      url.toLowerCase().endsWith('cigarettes.png') || url.toLowerCase().includes('cigarettes.png')
+    );
+    if (cgPngIndex !== -1) {
+      const [cgPng] = allSlides.splice(cgPngIndex, 1);
+      allSlides.push(cgPng);
+    } else {
+      allSlides.push('https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Cigarettes.png');
+    }
+  }
 
   const handleAddToCart = () => {
     setIsAdding(true);
