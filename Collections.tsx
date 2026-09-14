@@ -8,6 +8,31 @@ import { Product } from './types';
 import { PRODUCTS, filterProducts } from './constants';
 import { SEO } from './SEO';
 
+const applyCollectionOrder = (list: Product[]): Product[] => {
+  const result = [...list];
+  const priorityPatterns = ['cigarettes', 'scarface', 'shadow jin'];
+  const ordered: Product[] = [];
+
+  priorityPatterns.forEach(pattern => {
+    const index = result.findIndex(p => p.name.toLowerCase().includes(pattern));
+    if (index !== -1) {
+      ordered.push(result[index]);
+      result.splice(index, 1);
+    }
+  });
+
+  const finalOrder = [...ordered, ...result];
+
+  // Move RED DRAGON to be the last card on THE COLLECTION page
+  const rdIndex = finalOrder.findIndex(p => p.name.toLowerCase().includes('red dragon'));
+  if (rdIndex !== -1) {
+    const [rdProduct] = finalOrder.splice(rdIndex, 1);
+    finalOrder.push(rdProduct);
+  }
+
+  return finalOrder;
+};
+
 const Collections: React.FC = () => {
   const [filter, setFilter] = useState('ALL');
   const [products, setProducts] = useState<Product[]>([]);
@@ -26,7 +51,8 @@ const Collections: React.FC = () => {
 
         if (error || !data || data.length === 0) {
           // Silent fallback to local data if Supabase is empty or unreachable
-          setProducts(filterProducts(PRODUCTS).filter(p => p.tag !== 'VAULT'));
+          const fallback = filterProducts(PRODUCTS).filter(p => p.tag !== 'VAULT');
+          setProducts(applyCollectionOrder(fallback));
         } else {
           const mapped: Product[] = data.map(p => ({
             id: p.id,
@@ -46,9 +72,9 @@ const Collections: React.FC = () => {
             if (existingIndex === -1) {
               filtered.push(lp);
             } else {
-              // Replace image if database image is missing, broken corenexis link, or for Cigarettes Duffel
+              // Replace image if database image is missing, broken corenexis link, or if local product specifies custom image
               const currImg = filtered[existingIndex].image;
-              if (!currImg || currImg.includes('corenexis.com') || lp.name.toLowerCase().includes('cigarettes')) {
+              if (!currImg || currImg.includes('corenexis.com') || lp.image) {
                 filtered[existingIndex].image = lp.image;
               }
             }
@@ -63,14 +89,15 @@ const Collections: React.FC = () => {
             const temp = result[srIndex];
             result[srIndex] = result[uvIndex];
             result[uvIndex] = temp;
-            setProducts(result);
+            setProducts(applyCollectionOrder(result));
           } else {
-            setProducts(filtered);
+            setProducts(applyCollectionOrder(filtered));
           }
         }
       } catch (err) {
         // Graceful error handling - show local data instead of a crash
-        setProducts(filterProducts(PRODUCTS).filter(p => p.tag !== 'VAULT'));
+        const fallback = filterProducts(PRODUCTS).filter(p => p.tag !== 'VAULT');
+        setProducts(applyCollectionOrder(fallback));
       } finally {
         setLoading(false);
       }
