@@ -96,7 +96,8 @@ export const PRODUCTS: Product[] = [
       'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Swarm%20duffel%2003.jpg',
       'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Swarm%20duffel%2004.jpg',
       'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Swarm%20duffel%2005.jpg',
-      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Swarm%20Deffel.png'
+      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Swarm%20Deffel.png',
+      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Swarm%20Duffel%202.png'
     ]
   },
   {
