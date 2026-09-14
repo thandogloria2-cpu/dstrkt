@@ -6,14 +6,15 @@ export const PRODUCTS: Product[] = [
     name: 'Cigarettes Duffel',
     price: '$280',
     description: 'A striking blend of provocative artistry and premium craftsmanship. This piece redefines the modern carry experience.',
-    image: 'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Cigarettes.png',
+    image: 'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Cigarettes%2001.jpg',
     tag: 'NEW ARRIVAL',
     gallery: [
-      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Cigarettes%2001.jpg',
       'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Cigarattes%2002.jpg',
       'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Cigarettes%2003.jpg',
       'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/cigarettes%2004.jpg',
-      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Cigarettes%2005.jpg'
+      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Cigarettes%2005.jpg',
+      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Cigarettes%2001.jpg',
+      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Cigarettes.png'
     ]
   },
   {
@@ -21,15 +22,16 @@ export const PRODUCTS: Product[] = [
     name: 'Scarface Duffel',
     price: '$280',
     description: 'Bold and uncompromising. A duffel designed for those who command respect and carry style.',
-    image: 'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Scarface.png',
+    image: 'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Scarface%2010.jpg',
     tag: 'NEW ARRIVAL',
     gallery: [
-      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Scarface%20panel%20grid.jpeg',
-      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Scarface%2002.jpg',
+      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Scarface%2010.jpg',
+      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Scarface%2014.jpg',
       'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Scarface%2001.jpg',
       'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Scarface%2009.jpg',
-      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Scarface%2010.jpg',
-      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Scarface%2014.jpg'
+      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Scarface%20panel%20grid.jpeg',
+      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Scarface%2002.jpg',
+      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Scarface.png'
     ]
   },
   {
@@ -40,11 +42,11 @@ export const PRODUCTS: Product[] = [
     image: 'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Shadow%20Jin%2001.jpg',
     tag: 'NEW ARRIVAL',
     gallery: [
-      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Shadow%20Jin%2001.jpg',
       'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Shadow%20Jin%2002.jpg',
       'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Shadow%20Jin%2003.jpg',
       'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Shadow%20Jin%2004.jpg',
-      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Shadow%20Jin%2005.jpg'
+      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Shadow%20Jin%2005.jpg',
+      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Shadow%20Jin.png'
     ]
   },
   {
@@ -60,8 +62,18 @@ export const PRODUCTS: Product[] = [
     name: 'BLOOD SPLATTER',
     price: '$280',
     description: 'A visceral expression of urban intensity. Hand-painted crimson accents on matte black.',
-    image: 'https://image2url.com/r2/default/images/1773740632749-b62a6efe-0bee-4352-b629-be60a5149a08.png',
-    tag: 'NEW ARRIVAL'
+    image: 'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Blood%20Splatter%2001.jpg',
+    tag: 'NEW ARRIVAL',
+    gallery: [
+      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Blood%20Splatter%2001.jpg',
+      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Blood%20Splatter%2002.jpg',
+      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Blood%20Splatter%2003.jpg',
+      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Blood%20Splatter%2004.jpg',
+      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Blood%20Splatter%2005.jpg',
+      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Blood%20Splatter%2006.jpg',
+      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Blood%20Splatter%2007.jpeg',
+      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Blood%20Splatter.png'
+    ]
   },
   {
     id: 'rd-1',
@@ -76,14 +88,15 @@ export const PRODUCTS: Product[] = [
     name: 'Swarm Duffel',
     price: '$280',
     description: 'Gold-plated hardware meets military-grade ballistic nylon.',
-    image: 'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Swarm%20Deffel.png',
+    image: 'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Swarm%20duffel%2001.jpg',
     tag: 'BEST SELLER',
     gallery: [
       'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Swarm%20duffel%2001.jpg',
       'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Swarm%20duffel%2002.jpg',
       'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Swarm%20duffel%2003.jpg',
       'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Swarm%20duffel%2004.jpg',
-      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Swarm%20duffel%2005.jpg'
+      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Swarm%20duffel%2005.jpg',
+      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Swarm%20Deffel.png'
     ]
   },
   {
