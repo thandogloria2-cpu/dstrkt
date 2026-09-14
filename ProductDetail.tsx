@@ -96,15 +96,18 @@ const ProductDetail: React.FC = () => {
 
           // Use configured gallery images
           let images: string[] = [];
-          if (prodData.name === 'Swarm Duffel') {
-            images.push('https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Swarm%20Duffel%202.png');
-          }
           if (localMatch?.gallery) {
             localMatch.gallery.forEach(gImg => {
               if (gImg && !gImg.includes('corenexis.com') && !images.includes(gImg)) {
                 images.push(gImg);
               }
             });
+          }
+          if (prodData.name === 'Swarm Duffel') {
+            const swarmPng = 'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Swarm%20Duffel%202.png';
+            if (!images.includes(swarmPng)) {
+              images.push(swarmPng);
+            }
           }
           setGallery(images);
         }
@@ -227,6 +230,33 @@ const ProductDetail: React.FC = () => {
     } else {
       allSlides.push('https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Cigarettes.png');
     }
+  }
+
+  if (product.name.toLowerCase().includes('swarm')) {
+    const desiredOrder = [
+      'swarm%20duffel%2001.jpg',
+      'swarm%20duffel%2002.jpg',
+      'swarm%20duffel%2003.jpg',
+      'swarm%20duffel%2004.jpg',
+      'swarm%20duffel%2005.jpg',
+      'swarm%20deffel.png',
+      'swarm%20duffel%202.png'
+    ];
+
+    const ordered: string[] = [];
+    desiredOrder.forEach(pattern => {
+      const decodedPattern = decodeURIComponent(pattern);
+      const idx = allSlides.findIndex(url => {
+        const lower = url.toLowerCase();
+        return lower.includes(pattern) || lower.includes(decodedPattern);
+      });
+      if (idx !== -1) {
+        ordered.push(allSlides[idx]);
+        allSlides.splice(idx, 1);
+      }
+    });
+
+    allSlides = [...ordered, ...allSlides];
   }
 
   const handleAddToCart = () => {
