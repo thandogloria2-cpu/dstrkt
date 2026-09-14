@@ -58,11 +58,11 @@ const Profile: React.FC = () => {
     
     try {
       // Try to get extended profile info from DB
-      const { data, error } = await supabase
+      const { data } = await supabase
         .from('profiles')
         .select('*')
         .eq('id', currentSession.user.id)
-        .single();
+        .maybeSingle();
 
       // Get date from DB created_at or Auth user created_at
       const creationDate = data?.created_at || currentSession.user.created_at;
@@ -75,7 +75,7 @@ const Profile: React.FC = () => {
         .from('nicknames')
         .select('nickname')
         .eq('user_id', currentSession.user.id)
-        .single();
+        .maybeSingle();
       
       setProfile({
         // Priority: Database full_name, then metadata from registration, then email handle
