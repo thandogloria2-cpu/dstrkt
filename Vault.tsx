@@ -135,8 +135,8 @@ const Vault: React.FC = () => {
     try {
       // Fetch profile data and nickname in parallel
       const [profileRes, nickRes] = await Promise.all([
-        supabase.from('profiles').select('vault_access, full_name').eq('id', userId).single(),
-        supabase.from('nicknames').select('nickname').eq('user_id', userId).single()
+        supabase.from('profiles').select('full_name').eq('id', userId).maybeSingle(),
+        supabase.from('nicknames').select('nickname').eq('user_id', userId).maybeSingle()
       ]);
       
       const profileData = profileRes.data;
@@ -148,9 +148,7 @@ const Vault: React.FC = () => {
         nickname: nickData?.nickname || null
       }));
 
-      if (profileData) {
-        setHasVaultAccess(profileData.vault_access ?? true);
-      }
+      setHasVaultAccess(true);
     } catch (err) {
       console.error('Profile fetch failed:', err);
     }
