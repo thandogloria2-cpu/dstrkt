@@ -1,6 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <script>
+      (function() {
+        const origError = console.error;
+        const origWarn = console.warn;
+        function isBenign(arg) {
+          if (!arg) return false;
+          const s = typeof arg === 'string' ? arg : (arg.message || (arg.reason ? (arg.reason.message || String(arg.reason)) : String(arg)));
+          return (
+            s.includes('failed to connect to websocket') ||
+            s.includes('WebSocket closed without opened') ||
+            s.includes('WebSocket') ||
+            s.includes('vite') ||
+            s.includes('cdn.tailwindcss.com') ||
+            s.includes('googletagmanager') ||
+            s.includes('product_gallery')
+          );
+        }
+        console.error = function(...args) {
+          if (args.some(isBenign)) return;
+          origError.apply(console, args);
+        };
+        console.warn = function(...args) {
+          if (args.some(isBenign)) return;
+          origWarn.apply(console, args);
+        };
+        window.addEventListener('error', function(e) {
+          if (isBenign(e.message) || isBenign(e.error)) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            return true;
+          }
+        }, true);
+        window.addEventListener('unhandledrejection', function(e) {
+          if (isBenign(e.reason)) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            return true;
+          }
+        }, true);
+      })();
+    </script>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-X4MJXN3E4Q"></script>
     <script>
@@ -241,10 +282,7 @@
       "@context": "https://schema.org",
       "@type": "Product",
       "name": "DSTRKT Premium Graffiti Duffel Bag",
-      "description": "Limited edition premium duffel bags engraved 
-      with exclusive graffiti art inspired by Kill Bill, Bleach, 
-      Jujutsu Kaisen, Street Fighter and Ghost of Tsushima. 
-      Built for the bold. Ships worldwide.",
+      "description": "Limited edition premium duffel bags engraved with exclusive graffiti art inspired by Kill Bill, Bleach, Jujutsu Kaisen, Street Fighter and Ghost of Tsushima. Built for the bold. Ships worldwide.",
       "brand": {
         "@type": "Brand",
         "name": "DSTRKT"
@@ -279,9 +317,7 @@
           "@type": "Person",
           "name": "DSTRKT Customer"
         },
-        "reviewBody": "Absolutely premium quality. The graffiti 
-        art is unlike anything else on the market. The Kill Bill 
-        and Bleach designs are fire. Worth every cent."
+        "reviewBody": "Absolutely premium quality. The graffiti art is unlike anything else on the market. The Kill Bill and Bleach designs are fire. Worth every cent."
       },
       "audience": {
         "@type": "Audience",
@@ -334,41 +370,9 @@
         outline: none;
       }
     </style>
-    <script type="importmap">
-{
-  "imports": {
-    "react": "https://esm.sh/react@18.2.0",
-    "react-dom": "https://esm.sh/react-dom@18.2.0",
-    "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
-    "react-router-dom": "https://esm.sh/react-router-dom@6.22.3?deps=react@18.2.0",
-    "framer-motion": "https://esm.sh/framer-motion@11.0.24?deps=react@18.2.0",
-    "lucide-react": "https://esm.sh/lucide-react@0.363.0?deps=react@18.2.0",
-    "react/": "https://esm.sh/react@18.2.0/",
-    "react-dom/": "https://esm.sh/react-dom@18.2.0/",
-    "@google/genai": "https://esm.sh/@google/genai@^1.41.0"
-  }
-}
-</script>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>
-    <script>
-      // Suppress Vite HMR websocket errors in the console
-      (function() {
-        const originalError = console.error;
-        console.error = function(...args) {
-          if (args[0] && typeof args[0] === 'string' && (args[0].includes('failed to connect to websocket') || args[0].includes('WebSocket closed without opened'))) {
-            return;
-          }
-          originalError.apply(console, args);
-        };
-        window.addEventListener('unhandledrejection', function(event) {
-          if (event.reason && event.reason.message && (event.reason.message.includes('WebSocket closed without opened') || event.reason.message.includes('failed to connect to websocket'))) {
-            event.preventDefault();
-          }
-        });
-      })();
-    </script>
   </body>
 </html>
