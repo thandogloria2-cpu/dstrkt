@@ -1,5 +1,11 @@
 import { Product, VaultDrop } from './types';
 
+export const BLOCK_PARTY_NIGHT_SHIFT_IMAGES: string[] = [
+  'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Nightshift.png',
+  'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Nightshift%202.jpg',
+  'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Nightshift%2001.jpg'
+];
+
 export const PRODUCTS: Product[] = [
   {
     id: 'cg-1',
@@ -73,6 +79,26 @@ export const PRODUCTS: Product[] = [
       'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Blood%20Splatter%2006.jpg',
       'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Blood%20Splatter%2007.jpeg',
       'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Blood%20Splatter.png'
+    ]
+  },
+  {
+    id: 'bp-1',
+    name: 'Block Party',
+    price: '$280',
+    description: 'Vibrant geometric energy meets street luxury. Crafted for high-contrast impact and everyday movement.',
+    image: 'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Block%20Party%205.jpg',
+    tag: 'NEW ARRIVAL',
+    gallery: [
+      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Block%20Party%205.jpg',
+      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Block%20party%20001.jpg',
+      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Block%20Party%20002.jpg',
+      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Block%20Party%206.jpg',
+      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Block%20Party%201.jpg',
+      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Block%20Party%202.jpg',
+      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Block%20Party%203.jpg',
+      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Block%20Party%204.jpg',
+      'https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Block%20Party.png',
+      ...BLOCK_PARTY_NIGHT_SHIFT_IMAGES
     ]
   },
   {
