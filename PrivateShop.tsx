@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Lock, ArrowLeft, ShoppingBag, Eye, ShieldAlert, BadgeCheck, Loader2 } from 'lucide-react';
@@ -23,7 +24,7 @@ const PrivateShop: React.FC = () => {
           .from('profiles')
           .select('full_name')
           .eq('id', session.user.id)
-          .single();
+          .maybeSingle();
         setProfile(data);
       }
     };
