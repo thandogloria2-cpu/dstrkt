@@ -70,7 +70,7 @@ const onPayPalCancel = () => {
 
 const onPayPalError = (err: any) => {
   console.error(err);
-  alert("Payment failed. Please try again.");
+  setSaveError("Payment failed. Please try again.");
 };
   const isFormValid = formData.email && formData.firstName && formData.lastName && formData.address;
 
@@ -91,9 +91,11 @@ const onPayPalError = (err: any) => {
       
       // Update stock
       for (const item of items) {
-        const { data: prodData } = await supabase.from('products').select('stock').eq('id', item.id).single();
-        if (prodData && prodData.stock !== undefined) {
-           await supabase.from('products').update({ stock: Math.max(0, prodData.stock - item.quantity) }).eq('id', item.id);
+        if (/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(item.id)) {
+          const { data: prodData } = await supabase.from('products').select('stock').eq('id', item.id).maybeSingle();
+          if (prodData && prodData.stock !== undefined) {
+             await supabase.from('products').update({ stock: Math.max(0, prodData.stock - item.quantity) }).eq('id', item.id);
+          }
         }
       }
 
@@ -141,7 +143,7 @@ const onPayPalError = (err: any) => {
 
   return (
     <PayPalScriptProvider options={{ 
-      "client-id": (import.meta as any).env.VITE_PAYPAL_CLIENT_ID || "test",
+      clientId: (import.meta as any).env.VITE_PAYPAL_CLIENT_ID || "test",
       currency: "USD",
       intent: "capture",
       "disable-funding": "credit,paylater"
