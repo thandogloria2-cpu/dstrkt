@@ -23,6 +23,18 @@ const applyCollectionOrder = (list: Product[]): Product[] => {
 
   const finalOrder = [...ordered, ...result];
 
+  // Place Block Party immediately after Blood Splatter
+  const bpIndex = finalOrder.findIndex(p => p.name.toLowerCase().includes('block party'));
+  if (bpIndex !== -1) {
+    const [bpProduct] = finalOrder.splice(bpIndex, 1);
+    const bsIndex = finalOrder.findIndex(p => p.name.toLowerCase().includes('blood splatter'));
+    if (bsIndex !== -1) {
+      finalOrder.splice(bsIndex + 1, 0, bpProduct);
+    } else {
+      finalOrder.push(bpProduct);
+    }
+  }
+
   // Move RED DRAGON to be the last card on THE COLLECTION page
   const rdIndex = finalOrder.findIndex(p => p.name.toLowerCase().includes('red dragon'));
   if (rdIndex !== -1) {
