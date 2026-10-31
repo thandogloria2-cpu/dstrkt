@@ -172,27 +172,35 @@ const Home: React.FC = () => {
           </header>
           
           <div className="flex justify-center">
-            <div className="w-full lg:w-2/3 xl:w-1/2">
-              <motion.div 
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 1 }}
-                className="relative aspect-[4/5] md:aspect-[16/9] lg:aspect-[21/9] overflow-hidden border border-white/10 group"
-              >
-                <video 
-                  src="https://www.image2url.com/r2/default/videos/1784728114607-70587ac6-4ce7-41af-b753-87b32fc4d7f0.mp4" 
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
-                <div className="absolute bottom-8 left-8 right-8">
-                  <h3 className="text-2xl md:text-4xl font-black text-white uppercase tracking-widest leading-none">SCARFACE <br/> DUFFEL</h3>
-                </div>
-              </motion.div>
+            <div className="w-full lg:w-11/12 xl:w-full max-w-[1500px]">
+              <Link to="/product/bp-1" className="block w-full">
+                <motion.div 
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 1 }}
+                  className="relative w-full aspect-[4/5] md:aspect-[16/9] lg:aspect-[16/8] xl:aspect-[16/8] lg:min-h-[540px] xl:min-h-[620px] overflow-hidden border border-white/10 group cursor-pointer"
+                >
+                  <img 
+                    src="https://bjylzveziwmocmlfyfgm.supabase.co/storage/v1/object/public/Assets/Block%20Party%206.jpg" 
+                    alt="Block Party Duffel"
+                    className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-transparent"></div>
+                  <div className="absolute bottom-8 left-8 right-8 md:bottom-12 md:left-12 md:right-12 flex justify-between items-end">
+                    <div>
+                      <p className="text-[10px] md:text-xs tracking-[0.6em] font-bold text-[#D4AF37] uppercase mb-2">NEW RELEASE</p>
+                      <h3 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-black text-white uppercase tracking-widest leading-none">
+                        BLOCK PARTY <br /> DUFFEL
+                      </h3>
+                    </div>
+                    <div className="hidden sm:flex items-center gap-3 text-[11px] tracking-[0.4em] font-black uppercase text-white/80 group-hover:text-[#D4AF37] transition-colors">
+                      <span>SHOP NOW</span>
+                      <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform" />
+                    </div>
+                  </div>
+                </motion.div>
+              </Link>
             </div>
           </div>
         </div>
